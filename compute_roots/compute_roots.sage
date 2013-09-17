@@ -1,7 +1,19 @@
 #!/usr/bin/env sage
+#
+# A small python program to compute the roots of many polynomials
+# and save them to a file.
+# 
+# See https://johncarlosbaez.wordpress.com/2011/12/11/the-beauty-of-roots/
+#
+# (C) 2013 Henry de Valence <hdevalence@hdevalence.ca>
 
 import cPickle as pickle
 from multiprocessing import Pool
+
+# Here we just compute the polynomials whose coefficients are either
+# 1 or -1, but not zero. This allows us to encode such a polynomial as
+# an integer, where the digit of the binary expansion determines whether
+# the coefficient is 1 or -1.
 
 def polynomial_from_integer(x,n,bits, offset):
     """
