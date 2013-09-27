@@ -30,7 +30,10 @@ def find_derbyshire_block(d):
     bits = degree + 1
     for i in xrange(2^bits):
         f = prefix + polynomial_from_integer(x,i,bits,0)
-        roots += f.complex_roots()
+        # We only need to compute the roots if the last term is 1,
+        # since f and -f have the same roots.
+        if f.constant_coefficient() == 1:
+            roots += map(complex,f.complex_roots())
     picklename = 'pickled_roots_' + str(prefix).replace(' ','')
     print "Saving to %s" % picklename
     with open(picklename,'wb') as p:
